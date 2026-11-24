@@ -1,7 +1,34 @@
 
 import java.util.Scanner;
 
+
+
 public class Q3{
+
+    static void checkpostcode(String postcode){
+        // PART 3: Normalize postcode
+
+            postcode = postcode.replace(" ", "");
+            postcode = postcode.replace("-", "");
+            postcode = postcode.toUpperCase();
+
+            if (postcode.startsWith("MY")) {
+                postcode = postcode.substring(2);
+            }
+    }
+
+    static double calculate(int grams, int length, int width, int height){
+
+        double actualWeight = grams / 1000.0;
+
+            double volumetricWeight =
+                    (double) length * width * height / 5000.0;
+
+            double chargeableWeight =
+                    Math.ceil(Math.max(actualWeight, volumetricWeight));
+
+            return chargeableWeight;
+    }
 
     public static void main(String[] args) {
 
@@ -28,13 +55,7 @@ public class Q3{
 
             // PART 3: Normalize postcode
 
-            postcode = postcode.replace(" ", "");
-            postcode = postcode.replace("-", "");
-            postcode = postcode.toUpperCase();
-
-            if (postcode.startsWith("MY")) {
-                postcode = postcode.substring(2);
-            }
+            checkpostcode(postcode);
 
             // PART 4: Identify destination zone
 
@@ -164,14 +185,10 @@ public class Q3{
 
             // PART 7: Calculate actual and volumetric weight
 
-            double actualWeight = grams / 1000.0;
+            double actualWeight = 0.0; 
+            double volumetricWeight = 0.0;
 
-            double volumetricWeight =
-                    (double) length * width * height / 5000.0;
-
-            double chargeableWeight =
-                    Math.ceil(Math.max(actualWeight, volumetricWeight));
-
+            double chargeableWeight = calculate( grams, length, width, height);
             int chargeableKg = (int) chargeableWeight;
 
             // PART 8: Calculate normal shipping fee
